@@ -1,30 +1,65 @@
 import React from "react";
-import { Link,withRouter } from "react-router-dom";
-
-const isActive= ( history,path )=>{
-    if(history.location.pathname === path)
-       return {color:'#ff9990'};
-    else
-    return {color:'ffffff'};
-}
+import { Link, withRouter } from "react-router-dom";
+import {isAuthenticated,signout} from '../auth/index'
 
 
-const Menu = ( {history} ) => (
+const isActive = (history, path) => {
+  if (history.location.pathname === path) return { color: "#ff9990" };
+  else return { color: "ffffff" };
+};
+
+
+const Menu = ({ history }) => (
   <div>
     <ul className="nav nav-tabs bg-primary ">
       <li className="nav-items">
-        <Link className="nav-link" style={isActive(history,"/")} to="/">HOME</Link>
+        <Link className="nav-link" style={isActive(history, "/")} to="/">
+          HOME
+        </Link>
       </li>
 
-      <li className="nav-items">
-        <Link  className="nav-link" style={isActive(history,"/signup")}  to="/signup">SIGNUP</Link>
-      </li>
+      {!isAuthenticated() && (
+        <React.Fragment>
+          <li className="nav-items">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/signup")}
+              to="/signup"
+            >
+              SIGNUP
+            </Link>
+          </li>
 
-      <li className="nav-items">
-        <Link className="nav-link"  style={isActive(history,"/signin")} to="/signin">SIGNIN</Link>
-      </li>
+          <li className="nav-items">
+            <Link
+              className="nav-link"
+              style={isActive(history, "/signin")}
+              to="/signin"
+            >
+              SIGNIN
+            </Link>
+          </li>
+        </React.Fragment>
+      )}
+
+      {isAuthenticated() && (
+        <React.Fragment>
+          <li className="nav-items">
+            <a
+              className="nav-link"
+              style={isActive(history, "/signin")}
+              onClick={() => signout(() => history.push("/"))}
+            >
+              SIGN OUT
+            </a>
+          </li>
+
+          <li className="nav-items">
+            <a className="nav-link">{isAuthenticated().user.name}</a>
+          </li>
+        </React.Fragment>
+      )}
     </ul>
-    ;
   </div>
 );
 

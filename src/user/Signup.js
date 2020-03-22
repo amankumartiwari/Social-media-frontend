@@ -1,5 +1,5 @@
 import React from "react";
-
+import {signup} from '../auth/index'
 class Signup extends React.Component {
   constructor() {
     super();
@@ -28,7 +28,7 @@ class Signup extends React.Component {
     };
     // console.log(user)
 
-    this.signup(user).then(data => {
+    signup(user).then(data => {
       if (data.error) {
         this.setState({ error: data.error });
       } else {
@@ -43,20 +43,7 @@ class Signup extends React.Component {
     });
   };
 
-  signup = user => {
-    return fetch("http://localhost:8080/signup", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(user)
-    })
-      .then(response => {
-        return response.json();
-      })
-      .catch(err => console.log(err));
-  };
+
 
   render() {
      const {error,open} =this.state
