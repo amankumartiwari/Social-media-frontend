@@ -1,55 +1,69 @@
 import React from "react";
-import {isAuthenticated} from '../auth/index'
-import { Redirect } from "react-router-dom";
+import { isAuthenticated } from "../auth/index";
+import { Redirect, Link } from "react-router-dom";
+import { read } from "./apiUser";
+
 class Profile extends React.Component {
-  
-  constructor(){
-      super();
-      this.state={
-          user:"",
-          redirectToSignin:false
-      }
-  }
-  
-  componentDidMount(){
-   const userID = this.props.params.match.userId;
-
-   fetch(`${process.env.REACT_APP_API_URL}/user/${userID}`,{
-       method:"GET",
-       headers:{
-            Accept:"application/json",
-            "content-type":"application/json",
-            Authorization:`Bearer ${isAuthenticated().token}`
-       }
-   })
-   .then( response =>{
-       return response.json()
-   })
-   .then(data=>{
-       if(data.error){
-          this.setState({redirectToSignin:true})
-       }else{
-           this.setState({user:data})
-       }
-   })
+  constructor() {
+    super();
+    this.state = {
+      user: "",
+      redirectToSignin: false
+    };
   }
 
+  init = userID => {
+    const token = isAuthenticated().token;
+    // read(userID, token).then(data => {
+    //   if (data.error) {
+    //     this.setState({ redirectToSignin: true });
+    //   } else {
+    //     this.setState({ user: data });
+    //   }
+    // });
+  };
 
-    render() {
-const redirectToSignin =this.state.redirectToSignin
-     if(redirectToSignin){
-         return <Redirect to="/signin"/>
-     }
+  componentDidMount() {
+    const userID = this.props.match.params.userId;
+    this.init(userID);
+  }
+
+  render() {
+    const redirectToSignin = this.state.redirectToSignin;
+    if (redirectToSignin) {
+      return <Redirect to="/signin" />;
+    }
 
     return (
       <div className="container">
-        <h2 className="mt-5 mb-5"> Profile </h2>
-        <p>Hello {isAuthenticated().user.name}</p>
-        <p>Email: {isAuthenticated().user.email}</p>
+        <div className="row">
+          <div className="col-md-6">
+            <h2 className="mt-5 mb-5"> PROFILE </h2>
+            <p> Hello {isAuthenticated().user.name} </p>
+            <p> Email: {isAuthenticated().user.email} </p>
+          </div>
+
+          <div className="col-md-6">
+            {isAuthenticated().user &&
+              isAuthenticated().user._id ==
+                this.state.user._id && (
+                  <div className="d-inline-block mt-5">
+                    <Link
+                      className="btn btn-raised btn-success mr-5"
+                      to={`/user/edit/${this.state.user._id}`}
+                    >
+                      EDIT PROFILE
+                    </Link>
+                    <button className="btn btn-raised btn-danger">
+                      DELETE PROFILE
+                    </button>
+                  </div>
+                )}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 export default Profile;
- 
