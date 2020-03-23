@@ -1,13 +1,11 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import {isAuthenticated,signout} from '../auth/index'
-
+import { isAuthenticated, signout } from "../auth/index";
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) return { color: "#ff9990" };
   else return { color: "ffffff" };
 };
-
 
 const Menu = ({ history }) => (
   <div>
@@ -55,7 +53,13 @@ const Menu = ({ history }) => (
           </li>
 
           <li className="nav-items">
-            <a className="nav-link">{isAuthenticated().user.name}</a>
+            <Link
+              className="nav-link"
+              to={`user/${isAuthenticated().user._id}`}
+              style={{ color: "#fff" }}
+            >
+              {isAuthenticated().user.name}
+            </Link>
           </li>
         </React.Fragment>
       )}
