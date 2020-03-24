@@ -62,7 +62,9 @@ const Menu = ({ history }) => (
           <li className="nav-items">
             <Link
               className="nav-link"
+              currentPath={process.env.REACT_APP_API_URL}
               to={`user/${isAuthenticated().user._id}`}
+              currentPath="/"
               style={{ color: "#fff" }}
             >
               {isAuthenticated().user.name}

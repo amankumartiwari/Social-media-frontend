@@ -1,6 +1,7 @@
 import React from "react";
 import { list } from "./apiUser";
 import avatar from '../image/avatar.jpg'
+import { Link } from "react-router-dom";
 class Users extends React.Component {
   constructor() {
     super();
@@ -29,9 +30,9 @@ class Users extends React.Component {
           <div className="card-body">
             <h5 className="card-title">{user.name}</h5>
             <p className="card-text">{user.email}</p>
-            <a href="#" className="btn btn-raised btn-primary btn-sm">
+            <Link to={`/user/${user._id}`} className="btn btn-raised btn-primary btn-sm">
               View Profile
-            </a>
+            </Link>
           </div>
         </div>
       ))}
