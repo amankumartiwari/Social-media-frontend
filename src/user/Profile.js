@@ -14,13 +14,13 @@ class Profile extends React.Component {
 
   init = userID => {
     const token = isAuthenticated().token;
-    // read(userID, token).then(data => {
-    //   if (data.error) {
-    //     this.setState({ redirectToSignin: true });
-    //   } else {
-    //     this.setState({ user: data });
-    //   }
-    // });
+    read(userID, token).then(data => {
+      if (data.error) {
+        this.setState({ redirectToSignin: true });
+      } else {
+        this.setState({ user: data });
+      }
+    });
   };
 
   componentDidMount() {
