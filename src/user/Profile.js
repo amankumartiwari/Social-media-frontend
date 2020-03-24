@@ -51,7 +51,7 @@ componentWillReceiveProps(props){
               className="card-img-top"
               style={{ height: "15vw", width: "300px" }}
               src={avatar}
-              alt="Card image cap"
+              alt="Card  cap"
             />
           </div>
 
@@ -62,7 +62,7 @@ componentWillReceiveProps(props){
             </div>
 
             {isAuthenticated().user &&
-              isAuthenticated().user._id == this.state.user._id && (
+              isAuthenticated().user._id === this.state.user._id && (
                 <div className="d-inline-block mt-5">
                   <Link
                     className="btn btn-raised btn-success mr-5"
@@ -70,7 +70,7 @@ componentWillReceiveProps(props){
                   >
                     EDIT PROFILE
                   </Link>
-                  <DeleteProfile/>
+                  <DeleteProfile userId={user._id} />
                 </div>
               )}
           </div>

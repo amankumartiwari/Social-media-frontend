@@ -50,21 +50,19 @@ const Menu = ({ history }) => (
       {isAuthenticated() && (
         <React.Fragment>
           <li className="nav-items">
-            <a
+            <span
               className="nav-link"
               style={isActive(history, "/signin")}
               onClick={() => signout(() => history.push("/"))}
             >
               SIGN OUT
-            </a>
+            </span>
           </li>
 
           <li className="nav-items">
             <Link
               className="nav-link"
-              currentPath={process.env.REACT_APP_API_URL}
-              to={`user/${isAuthenticated().user._id}`}
-              currentPath="/"
+              to={`user/${isAuthenticated().user._id}`}              
               style={{ color: "#fff" }}
             >
               {isAuthenticated().user.name}

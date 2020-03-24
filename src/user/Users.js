@@ -26,7 +26,7 @@ class Users extends React.Component {
     <div className="row">
       {users.map((user, id) => (
         <div className="card col-md-4" key={id}>
-          <img className="card-img-top" src={avatar} alt="Card image cap" />
+          <img className="card-img-top" src={avatar} alt="Card  cap" />
           <div className="card-body">
             <h5 className="card-title">{user.name}</h5>
             <p className="card-text">{user.email}</p>
