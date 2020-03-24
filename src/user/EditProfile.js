@@ -1,6 +1,6 @@
 import React from "react";
 import { isAuthenticated } from "../auth/index";
-import { read,update } from "./apiUser";
+import { read, update } from "./apiUser";
 import { Redirect } from "react-router-dom";
 
 class EditProfile extends React.Component {
@@ -12,7 +12,7 @@ class EditProfile extends React.Component {
       password: "",
       email: "",
       redirectToProfile: false,
-      error:""
+      error: ""
     };
   }
 
@@ -32,6 +32,24 @@ class EditProfile extends React.Component {
     this.init(userID);
   }
 
+  isvalid = () => {
+    const { name, email, password } = this.state;
+
+    if (name.length == 0) {
+      this.setState({ error: "Name is Required" });
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      this.setState({ error: "A valid Email is Required" });
+      return false;
+    }
+    if (password.length > 0 && password.length < 6) {
+      this.setState({ error: "Password must be 6 character long" });
+      return false;
+    }
+    return true;
+  };
+
   handleinput = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -39,26 +57,28 @@ class EditProfile extends React.Component {
   clickSubmit = event => {
     event.preventDefault();
 
-    const { name, email, password } = this.state;
-    const user = {
-      name,
-      email,
-      password:password || undefined
-    };
-    // console.log(user)
+    if (this.isvalid()) {
+      const { name, email, password } = this.state;
+      const user = {
+        name,
+        email,
+        password: password || undefined
+      };
+      // console.log(user)
 
-    const userId = this.props.match.params.userId;
-    const token = isAuthenticated().token;
+      const userId = this.props.match.params.userId;
+      const token = isAuthenticated().token;
 
-    update(userId, token,user).then(data => {
-      if (data.error) {
-        this.setState({ error: data.error });
-      } else {
-        this.setState({
-            redirectToProfile:true
-        });
-      }
-    });
+      update(userId, token, user).then(data => {
+        if (data.error) {
+          this.setState({ error: data.error });
+        } else {
+          this.setState({
+            redirectToProfile: true
+          });
+        }
+      });
+    }
   };
 
   signupForm = (name, email, password) => (
@@ -100,7 +120,7 @@ class EditProfile extends React.Component {
   );
 
   render() {
-    const { name, email, password, redirectToProfile, id } = this.state;
+    const { name, email, password, redirectToProfile, id,error } = this.state;
 
     if (redirectToProfile) {
       return <Redirect to={`/user/${id}`} />;
@@ -109,6 +129,12 @@ class EditProfile extends React.Component {
     return (
       <div className="container">
         <h2 className="mt-5 mb-5"> PROFILE edit </h2>
+        <div
+          className="alert alert-danger"
+          style={{ display: error ? "" : "none" }}
+        >
+          {error}
+        </div>
 
         {this.signupForm(name, email, password)}
       </div>
