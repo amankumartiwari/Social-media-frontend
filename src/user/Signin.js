@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import {authenticate,signin} from '../auth/index'
+import { authenticate, signin } from "../auth/index";
 
 class Signin extends React.Component {
   constructor() {
@@ -18,8 +18,6 @@ class Signin extends React.Component {
     this.setState({ error: "" });
     this.setState({ [name]: event.target.value });
   };
-
-  
 
   clickSubmit = event => {
     event.preventDefault();
@@ -43,8 +41,6 @@ class Signin extends React.Component {
     });
   };
 
-  
-
   render() {
     const { error, loading } = this.state;
 
@@ -63,7 +59,13 @@ class Signin extends React.Component {
           {error}
         </div>
 
-        {loading ? <div className="jumbotron text-center"><h2>Loading...</h2> </div> : ""}
+        {loading ? (
+          <div className="jumbotron text-center">
+            <h2>Loading...</h2>{" "}
+          </div>
+        ) : (
+          ""
+        )}
 
         <form>
           <div className="form-group">

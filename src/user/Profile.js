@@ -30,16 +30,18 @@ class Profile extends React.Component {
     this.init(userID);
   }
 
-componentWillReceiveProps(props){
-  const userID = props.match.params.userId;
+  componentWillReceiveProps(props) {
+    const userID = props.match.params.userId;
     this.init(userID);
-}
+  }
 
   render() {
     const { redirectToSignin, user } = this.state;
     if (redirectToSignin) {
       return <Redirect to="/signin" />;
     }
+
+    const photoUrl = user._id ? `${process.env.REACT_APP_API_URL}/user/photo/${user._id}?${new Date().getTime}`: avatar ;
 
     return (
       <div className="container">
@@ -48,10 +50,11 @@ componentWillReceiveProps(props){
         <div className="row">
           <div className="col-md-6">
             <img
-              className="card-img-top"
-              style={{ height: "15vw", width: "300px" }}
-              src={avatar}
-              alt="Card  cap"
+              style={{ height: "200px", width: "300px" }}
+              className="img-thumbnail"
+              src={photoUrl}
+              onError={i => (i.target.src = `${avatar}`)}
+              alt={user.name}
             />
           </div>
 
@@ -75,6 +78,15 @@ componentWillReceiveProps(props){
               )}
           </div>
         </div>
+
+       <div className="row">
+          <div className="col-6 md-12 mt-5 mb-5" >
+            <hr/>
+            <p className="lead"> {user.about} </p>
+            <hr/>
+          </div>
+       </div>
+
       </div>
     );
   }
