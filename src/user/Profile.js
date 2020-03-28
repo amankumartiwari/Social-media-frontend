@@ -5,6 +5,7 @@ import { read } from "./apiUser";
 import avatar from "../image/avatar.jpg";
 import DeleteProfile from "./DeleteProfile";
 import FollowProfileButton from "./FollowProfileButton";
+import ProfileTabs from "./ProfileTabs";
 
 class Profile extends React.Component {
   constructor() {
@@ -118,6 +119,10 @@ class Profile extends React.Component {
             <hr />
             <p className="lead"> {user.about} </p>
             <hr />
+            <ProfileTabs
+              followers={user.followers}
+              following={user.following}
+            />
           </div>
         </div>
       </div>
