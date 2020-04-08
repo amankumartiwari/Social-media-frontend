@@ -15,13 +15,16 @@ const Menu = ({ history }) => (
           HOME
         </Link>
       </li>
-     
+
       <li className="nav-items">
-        <Link className="nav-link" style={isActive(history, "/users")} to="/users">
+        <Link
+          className="nav-link"
+          style={isActive(history, "/users")}
+          to="/users"
+        >
           USERS
         </Link>
       </li>
-    
 
       {!isAuthenticated() && (
         <React.Fragment>
@@ -62,18 +65,27 @@ const Menu = ({ history }) => (
           <li className="nav-items">
             <Link
               className="nav-link"
-              to={`/findpeople`}              
+              to={`/findpeople`}
               style={{ color: "#fff" }}
             >
               Find People
             </Link>
           </li>
- 
 
           <li className="nav-items">
             <Link
               className="nav-link"
-              to={`/user/${isAuthenticated().user._id}`}              
+              to={`/post/create`}
+              style={{ color: "#fff" }}
+            >
+              Create Posts
+            </Link>
+          </li>
+
+          <li className="nav-items">
+            <Link
+              className="nav-link"
+              to={`/user/${isAuthenticated().user._id}`}
               style={{ color: "#fff" }}
             >
               {isAuthenticated().user.name}
