@@ -85,7 +85,7 @@ class Profile extends React.Component {
               src={photoUrl}
               onError={i => (i.target.src = `${avatar}`)}
               alt={user.name}
-            />
+            />    
           </div>
 
           <div className="col-md-6">
@@ -115,7 +115,7 @@ class Profile extends React.Component {
         </div>
 
         <div className="row">
-          <div className="col-6 md-12 mt-5 mb-5">
+          <div className="col md-12 mt-5 mb-5">
             <hr />
             <p className="lead"> {user.about} </p>
             <hr />
