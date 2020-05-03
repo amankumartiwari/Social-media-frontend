@@ -63,24 +63,24 @@ class SinglePost extends Component {
     //     });
     // };
 
-    // deletePost = () => {
-    //     const postId = this.props.match.params.postId;
-    //     const token = isAuthenticated().token;
-    //     remove(postId, token).then(data => {
-    //         if (data.error) {
-    //             console.log(data.error);
-    //         } else {
-    //             this.setState({ redirectToHome: true });
-    //         }
-    //     });
-    // };
+    deletePost = () => {
+        const postId = this.props.match.params.postId;
+        const token = isAuthenticated().token;
+        remove(postId, token).then(data => {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                this.setState({ redirectToHome: true });
+            }
+        });
+    };
 
-    // deleteConfirmed = () => {
-    //     let answer = window.confirm('Are you sure you want to delete your post?');
-    //     if (answer) {
-    //         this.deletePost();
-    //     }
-    // };
+    deleteConfirmed = () => {
+        let answer = window.confirm('Are you sure you want to delete your post?');
+        if (answer) {
+            this.deletePost();
+        }
+    };
 
     renderPost = post => {
         const posterId = post.postedBy ? `/user/${post.postedBy._id}` : '';
