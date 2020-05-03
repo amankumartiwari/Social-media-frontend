@@ -83,7 +83,7 @@ class ProfileTabs extends Component {
                     <div className="col-md-4">
                         <h3 className="text-primary"> Posts</h3>
                         <hr />
-                        {/* {posts.map((post, i) => (
+                        {posts.map((post, i) => (
                             <div key={i}>
                                 <div>
                                     <Link to={`/post/${post._id}`}>
@@ -93,7 +93,7 @@ class ProfileTabs extends Component {
                                     </Link>
                                 </div>
                             </div>
-                        ))} */}
+                        ))}
                     </div>
                 </div>
             </div>
