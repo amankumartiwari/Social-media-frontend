@@ -102,7 +102,7 @@ class SinglePost extends Component {
                     }}
                 />
 
-                {like ? (
+                {/* {like ? (
                     <h3 onClick={this.likeToggle}>
                         <i
                             className="fa fa-thumbs-up text-success bg-dark"
@@ -118,7 +118,7 @@ class SinglePost extends Component {
                         />{' '}
                         {likes} Like
                     </h3>
-                )}
+                )} */}
 
                 <p className="card-text">{post.body}</p>
                 <br />
